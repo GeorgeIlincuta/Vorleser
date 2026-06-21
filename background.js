@@ -1,5 +1,5 @@
 const MENU_ID = "vorleser-listen";
-const DEFAULTS = { serverUrl: "http://127.0.0.1:5000", voice: "M1" };
+const DEFAULTS = { serverUrl: "http://127.0.0.1:5000", voice: "M1", lang: "de" };
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
@@ -14,10 +14,10 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
   const text = (info.selectionText || "").trim();
   if (!text) return;
 
-  const { serverUrl, voice } = await getSettings();
+  const { serverUrl, voice, lang } = await getSettings();
   await ensureOffscreen();
   setBadge("…", "#888888", "Vorleser: synthesizing…");
-  chrome.runtime.sendMessage({ target: "offscreen", cmd: "play", serverUrl, text, voice });
+  chrome.runtime.sendMessage({ target: "offscreen", cmd: "play", serverUrl, text, voice, lang });
 });
 
 chrome.action.onClicked.addListener(() => {
@@ -41,6 +41,7 @@ async function getSettings() {
   return {
     serverUrl: s.serverUrl || DEFAULTS.serverUrl,
     voice: s.voice || DEFAULTS.voice,
+    lang: s.lang || DEFAULTS.lang,
   };
 }
 

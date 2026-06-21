@@ -8,7 +8,7 @@ audio.addEventListener("error", () => send("error", "Audio playback failed."));
 
 chrome.runtime.onMessage.addListener((msg) => {
   if (!msg || msg.target !== "offscreen") return;
-  if (msg.cmd === "play") play(msg.serverUrl, msg.text, msg.voice);
+  if (msg.cmd === "play") play(msg.serverUrl, msg.text, msg.voice, msg.lang);
   else if (msg.cmd === "stop") stop();
 });
 
@@ -19,14 +19,14 @@ function stop() {
   } catch (_) {}
 }
 
-async function play(serverUrl, text, voice) {
+async function play(serverUrl, text, voice, lang) {
   stop();
   try {
     const base = String(serverUrl).replace(/\/+$/, "");
     const resp = await fetch(base + "/tts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, voice, lang: "de" }),
+      body: JSON.stringify({ text, voice, lang: lang || "de" }),
     });
     if (!resp.ok) {
       let detail = "Server returned " + resp.status;

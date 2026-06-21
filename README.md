@@ -29,4 +29,5 @@ before Vorleser can play anything.
   voices come from `GET /voices` (a flat list of ids; gender shown in the picker
   is inferred from the `F*`/`M*` prefix).
 
-Language is fixed to German (`lang: "de"`). Server origin is local only in v1.
+Language is selectable in **Options** (German or English; default German) and
+sent as `lang` on each `/tts` call. Server origin is local only in v1.

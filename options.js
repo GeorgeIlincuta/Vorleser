@@ -1,4 +1,4 @@
-const DEFAULTS = { serverUrl: "http://127.0.0.1:5000", voice: "M1" };
+const DEFAULTS = { serverUrl: "http://127.0.0.1:5000", voice: "M1", lang: "de" };
 const $ = (id) => document.getElementById(id);
 const base = () => $("serverUrl").value.trim().replace(/\/+$/, "");
 
@@ -9,6 +9,7 @@ const genderOf = (id) => (/^f/i.test(id) ? "female" : "male");
 async function init() {
   const s = await chrome.storage.sync.get(DEFAULTS);
   $("serverUrl").value = s.serverUrl || DEFAULTS.serverUrl;
+  $("lang").value = s.lang || DEFAULTS.lang;
   await populateVoices(s.voice || DEFAULTS.voice);
 }
 
@@ -49,7 +50,7 @@ $("test").addEventListener("click", async () => {
 });
 
 $("save").addEventListener("click", async () => {
-  await chrome.storage.sync.set({ serverUrl: base(), voice: $("voice").value });
+  await chrome.storage.sync.set({ serverUrl: base(), voice: $("voice").value, lang: $("lang").value });
   $("saveStatus").textContent = "Saved";
   setTimeout(() => ($("saveStatus").textContent = ""), 1500);
 });
