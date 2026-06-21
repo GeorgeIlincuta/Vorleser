@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Vorleser",
+  "version": "0.1.0",
+  "description": "Read selected German text aloud via the local Converse TTS API.",
+  "permissions": ["contextMenus", "storage", "offscreen"],
+  "host_permissions": [
+    "http://127.0.0.1:5000/*",
+    "http://localhost:5000/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "Vorleser" },
+  "options_page": "options.html"
+}
