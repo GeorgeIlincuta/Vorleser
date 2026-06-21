@@ -3,6 +3,14 @@
 A Chrome (Manifest V3) extension that reads **selected German text aloud** using
 the local [Converse](https://github.com/GeorgeIlincuta/Converse) TTS API.
 
+## Requirements
+
+This extension is a thin client and **does not work on its own** — it requires
+the [Converse API](https://github.com/GeorgeIlincuta/Converse) running locally
+to synthesize speech. Clone, build, and run that project first; it must be
+reachable (default `http://127.0.0.1:5000`) and report `tts: true` at `/health`
+before Vorleser can play anything.
+
 ## Use
 1. Run the Converse API (it must show `tts: true` at `/health`).
 2. Load this folder as an unpacked extension (`chrome://extensions` → Developer
